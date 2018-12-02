@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Crazy Puzzle</string>
+    <string name="your_puzzle">Your Puzzle</string>
+    <string name="btn_upload">Upload Image</string>
+    <string name="btn_create_puzzle">Create a Puzzle</string>
+    <string name="lbl_preview">Preview</string>
+    <string name="lbl_upload">Upload</string>
+    <string name="placeholder_upload_image">Upload an Image to see the Preview!</string>
+    <string name="title_activity_upload_image">UploadImage</string>
+    <string name="snackbar_image_not_uploaded">You have to choose an Image!</string>
+</resources>
