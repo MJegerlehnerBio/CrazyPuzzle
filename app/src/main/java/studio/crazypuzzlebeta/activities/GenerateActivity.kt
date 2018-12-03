@@ -8,6 +8,7 @@ import android.os.Handler
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.text.Editable
+import android.util.Log
 import kotlinx.android.synthetic.main.activity_generate.*
 import studio.crazypuzzlebeta.GameData
 import studio.crazypuzzlebeta.R
@@ -40,12 +41,31 @@ class GenerateActivity : AppCompatActivity() {
     // makes also sure that the puzzle cannot be below 3x3 to prevent visual glitches
     private fun startPuzzleGame() {
         btn_start.setOnClickListener {
-            if(num_xcuts.text.toString().toInt() < 3 || num_ycuts.text.toString().toInt() < 3) {
-                Snackbar.make(generate_puzzle_constraint, "Your Puzzle must be at least 3x3", Snackbar.LENGTH_SHORT).show()
+            var isTrue = true
+            if(num_xcuts.text.toString().trim().isEmpty() || num_ycuts.text.toString().trim().isEmpty() || num_opacity.text.toString().trim().isEmpty()) {
+                Snackbar.make(generate_puzzle_constraint, "No empty Values allowed!", Snackbar.LENGTH_SHORT).show()
                 val clickSound: MediaPlayer = MediaPlayer.create(this, R.raw.error_sound)
                 clickSound.setVolume(0.2f, 0.2f)
                 clickSound.start()
-            } else {
+                isTrue = false
+            }
+            if(num_xcuts.text.toString().trim().isEmpty()) {
+                num_xcuts.text = Editable.Factory.getInstance().newEditable("4")
+            }
+            if(num_ycuts.text.toString().trim().isEmpty()) {
+                num_ycuts.text = Editable.Factory.getInstance().newEditable("3")
+            }
+            if(num_opacity.text.toString().trim().isEmpty()) {
+                num_opacity.text = Editable.Factory.getInstance().newEditable("50")
+            }
+            if(num_xcuts.text.toString().toInt() < 3 || num_ycuts.text.toString().toInt() < 3) {
+                Snackbar.make(generate_puzzle_constraint, "Your Puzzle must be at least 3x3!", Snackbar.LENGTH_SHORT).show()
+                val clickSound: MediaPlayer = MediaPlayer.create(this, R.raw.error_sound)
+                clickSound.setVolume(0.2f, 0.2f)
+                clickSound.start()
+                isTrue = false
+            }
+            if(isTrue){
                 GameData.currentPlayer.playerName = txt_player_name_input.text.toString()
                 GameData.puzzleCutsX = Integer.parseInt(num_xcuts.text.toString())
                 GameData.puzzleCutsY = Integer.parseInt(num_ycuts.text.toString())
